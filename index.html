@@ -1,230 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What Should I Eat?</title>
+
+    <title>Ką valgyti?</title>
 
     <style>
-        :root {
-            --mint: #b8ead8;
-            --dark-mint: #4f9d83;
-            --light-mint: #effcf7;
-            --dark: #24443a;
-            --white: #ffffff;
-        }
-
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
-            background: var(--light-mint);
-            color: var(--dark);
-            line-height: 1.6;
+            background-color: #f7faf8;
+            color: #26332d;
         }
 
         header {
-            background: var(--mint);
-            padding: 25px;
-            text-align: center;
+            background-color: #ffffff;
+            border-bottom: 1px solid #dce8e1;
+            padding: 20px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
         }
 
-        header p {
-            font-size: 1.1rem;
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #315c4b;
         }
 
         nav {
-            background: var(--white);
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #d8eee6;
+            display: flex;
+            gap: 20px;
         }
 
         nav a {
-            color: var(--dark-mint);
             text-decoration: none;
-            margin: 8px;
+            color: #52665b;
             font-weight: bold;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: #315c4b;
         }
 
-        main {
-            max-width: 1100px;
+        .hero {
+            background-color: #e7f1eb;
+            padding: 70px 25px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin: 0 0 15px;
+            color: #315c4b;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 650px;
             margin: auto;
-            padding: 30px 20px;
+            line-height: 1.6;
+            color: #52665b;
         }
 
-        .welcome {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 15px;
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 45px 25px;
+        }
+
+        .section-title {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .welcome h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
-        .category {
-            background: var(--mint);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .section-title {
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        .recipes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .recipe-card {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-        }
-
-        .recipe-card h3 {
-            color: var(--dark-mint);
+        .section-title h2 {
+            font-size: 32px;
+            color: #315c4b;
             margin-bottom: 10px;
         }
 
-        .tag {
-            display: inline-block;
-            background: var(--mint);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin: 3px;
+        .section-title p {
+            color: #66756d;
         }
 
-        .ingredient-search {
-            background: var(--white);
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .category-card {
+            background-color: white;
+            border: 1px solid #dce8e1;
+            border-radius: 14px;
             padding: 25px;
-            border-radius: 15px;
-            margin-top: 40px;
-        }
-
-        .ingredient-search input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #b8dcd0;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin-top: 10px;
-        }
-
-        footer {
             text-align: center;
-            padding: 25px;
-            margin-top: 40px;
-            background: var(--mint);
+            transition: 0.2s;
         }
-    </style>
-</head>
 
-<body>
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(49, 92, 75, 0.08);
+        }
 
-    <header>
-        <h1>What Should I Eat?</h1>
-        <p>Simple food ideas for busy people, beginners, and anyone who doesn't know what to cook.</p>
-    </header>
+        .category-card h3 {
+            color: #315c4b;
+            margin-top: 0;
+        }
 
-    <nav>
-        <a href="#meal-ideas">Meal Ideas</a>
-        <a href="#recipes">Recipes</a>
-        <a href="#beginner">I Don't Know How to Cook</a>
-        <a href="#easier">Make Cooking Easier</a>
-        <a href="#sweet">Sweet Ideas</a>
-    </nav>
+        .category-card p {
+            color: #66756d;
+            line-height: 1.5;
+        }
 
-    <main>
+        .ingredient-section {
+            background-color: #ffffff;
+            border: 1px solid #dce8e1;
+            border-radius: 18px;
+            padding: 30px;
+            margin-top: 20px;
+        }
 
-        <section class="welcome">
-            <h2>Don't know what to eat?</h2>
-            <p>
-                Find simple meal ideas, beginner cooking advice, and practical food tips
-                without spending forever searching for something to make.
-            </p>
-        </section>
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cbdad1;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
 
-        <section id="meal-ideas">
-            <h2 class="section-title">What are you looking for?</h2>
+        .ingredient-groups {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
 
-            <div class="categories">
-                <div class="category">🍽️ Meal Ideas</div>
-                <div class="category">🍳 Beginner Cooking</div>
-                <div class="category">⏱️ Quick Ideas</div>
-                <div class="category">🍫 Sweet Ideas</div>
-                <div class="category">🧠 Make Cooking Easier</div>
-                <div class="category">🥕 Food Advice</div>
-            </div>
-        </section>
+        .ingredient-group h3 {
+            color: #315c4b;
+            border-bottom: 1px solid #dce8e1;
+            padding-bottom: 8px;
+        }
 
-        <section id="recipes">
-            <h2 class="section-title">Featured Ideas</h2>
-
-            <div class="recipes">
-
-                <div class="recipe-card">
-                    <h3>🍌 Frozen Banana</h3>
-                    <p>
-                        A simple frozen banana becomes surprisingly creamy and
-                        makes an easy cold sweet treat.
-                    </p>
-                    <span class="tag">Sweet</span>
-                    <span class="tag">Cold</span>
-                    <span class="tag">Easy</span>
-                </div>
-
-                <div class="recipe-card">
-                    <h3>🍫 Date “Snickers”</h3>
-                    <p>
-                        Dates, peanut butter, and chocolate can create a simple
-                        sweet snack inspired by a chocolate bar.
-                    </p>
-                    <span class="tag">Sweet</span>
-                    <span class="tag">No complicated cooking</span>
-                </div>
-
-                <div class="recipe-card">
-                    <h3>🍇 Frozen Sour Grapes</h3>
-                    <p>
-                        Frozen grapes with lemon juice can make a cold and sour
-                        snack when you want something refreshing.
-                    </p>
-                    <span class="tag">Cold</span>
-                    <span class="tag">Sour</span>
-                    <span class="tag">Easy</span>
-                </div>
-
-            </div>
-        </
+        .ingredient {
+            display: block;
+            padding: 8px 0;
+            color:
