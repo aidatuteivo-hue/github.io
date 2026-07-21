@@ -194,6 +194,27 @@
             display: block;
         }
 
+        #admin {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#admin h2 {
+    display: none;
+}
+
+#admin .admin-box {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+#admin button {
+    background: transparent;
+    padding: 4px;
+    font-size: 16px;
+}
+
         .admin-form {
             display: grid;
             gap: 10px;
@@ -251,7 +272,6 @@
             <a href="#kategorijos">Kategorijos</a>
             <a href="#ingredientai">Ingredientai</a>
             <a href="#receptai">Receptai</a>
-            <a href="#admin">Admin</a>
         </nav>
 
     </div>
@@ -308,7 +328,7 @@
         <div class="ingredients-box">
 
             <div class="ingredient-group">
-                <h3>🥛 Pieno produktai ir kiaušiniai</h3>
+                <h3> onclick="toggleIngredients(this)">🥛 Pieno produktai ir kiaušiniai</h3>
 
                 <label class="ingredient"><input type="checkbox"> Pienas</label>
                 <label class="ingredient"><input type="checkbox"> Grietinėlė</label>
@@ -431,12 +451,12 @@
 
     <section id="admin">
 
-        <h2>🔐 Administravimas</h2>
+        <h2>🔐</h2>
 
         <div class="admin-box">
 
             <button class="primary-button" onclick="toggleAdmin()">
-                Atidaryti administravimo skydelį
+                🔐
             </button>
 
             <div id="adminPanel" class="admin-panel">
