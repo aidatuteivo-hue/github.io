@@ -14,19 +14,19 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f7faf8;
+            background: #f7faf8;
             color: #26332d;
         }
 
         header {
-            background-color: #ffffff;
-            padding: 20px;
+            background: white;
             border-bottom: 1px solid #dce8e1;
+            padding: 20px;
         }
 
         .header-content {
             max-width: 1100px;
-            margin: 0 auto;
+            margin: auto;
         }
 
         .logo {
@@ -49,7 +49,7 @@
         .hero {
             padding: 70px 20px;
             text-align: center;
-            background-color: #e7f1eb;
+            background: #e7f1eb;
         }
 
         .hero h1 {
@@ -59,15 +59,15 @@
         }
 
         .hero p {
-            max-width: 650px;
-            margin: 0 auto;
+            max-width: 700px;
+            margin: auto;
             font-size: 18px;
             line-height: 1.6;
         }
 
         main {
             max-width: 1100px;
-            margin: 0 auto;
+            margin: auto;
             padding: 40px 20px;
         }
 
@@ -76,60 +76,153 @@
         }
 
         h2 {
-            margin-bottom: 25px;
             color: #315c4b;
         }
 
-        .categories {
+        .categories,
+        .post-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
         }
 
-        .category {
-            padding: 25px;
-            background-color: #ffffff;
+        .category,
+        .post-card,
+        .ingredients-box,
+        .admin-box {
+            background: white;
             border: 1px solid #dce8e1;
             border-radius: 12px;
+            padding: 25px;
         }
 
-        .category h3 {
-            margin-top: 0;
+        .category h3,
+        .post-card h3 {
             color: #315c4b;
         }
 
-        .category p {
-            line-height: 1.5;
+        .category p,
+        .post-card p {
+            line-height: 1.6;
         }
 
-        .ingredients {
-            padding: 25px;
-            background-color: #ffffff;
-            border: 1px solid #dce8e1;
-            border-radius: 12px;
+        .ingredients-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
         }
 
-        .ingredients label {
+        .ingredient-group h3 {
+            color: #315c4b;
+            margin-top: 0;
+        }
+
+        .ingredient {
             display: block;
-            margin: 14px 0;
+            margin: 9px 0;
         }
 
-        .ingredients input {
+        .ingredient input {
             margin-right: 8px;
         }
 
+        .tag {
+            display: inline-block;
+            padding: 6px 10px;
+            margin: 4px 4px 4px 0;
+            background: #e7f1eb;
+            color: #315c4b;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
         .empty {
-            padding: 40px 20px;
             text-align: center;
-            background-color: #ffffff;
+            padding: 40px 20px;
             border: 1px dashed #cbdad1;
             border-radius: 12px;
+            background: white;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .primary-button {
+            background: #315c4b;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #e7f1eb;
+            color: #315c4b;
+        }
+
+        .danger-button {
+            background: #f1dddd;
+            color: #8a3030;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 7px 0 15px;
+            border: 1px solid #cbdad1;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .admin-panel {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .admin-panel.visible {
+            display: block;
+        }
+
+        .admin-form {
+            display: grid;
+            gap: 10px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group label {
+            padding: 8px;
+            background: #f7faf8;
+            border-radius: 6px;
+        }
+
+        .admin-post {
+            padding: 15px;
+            border: 1px solid #dce8e1;
+            border-radius: 8px;
+            margin-top: 12px;
         }
 
         footer {
-            padding: 30px 20px;
             text-align: center;
-            background-color: #e7f1eb;
+            padding: 30px;
+            background: #e7f1eb;
         }
 
         @media (max-width: 600px) {
@@ -147,155 +240,403 @@
 
 <body>
 
-    <header>
-        <div class="header-content">
+<header>
+    <div class="header-content">
 
-            <div class="logo">
-                Ką valgyti?
-            </div>
-
-            <nav>
-                <a href="#kategorijos">Kategorijos</a>
-                <a href="#ingredientai">Ingredientai</a>
-                <a href="#receptai">Receptai</a>
-            </nav>
-
+        <div class="logo">
+            Ką valgyti?
         </div>
-    </header>
 
-    <div class="hero">
-
-        <h1>Nežinai, ką valgyti?</h1>
-
-        <p>
-            Paprastos maisto idėjos užimtiems žmonėms,
-            pradedantiesiems ir visiems, kurie nenori ilgai galvoti,
-            ką pasigaminti.
-        </p>
+        <nav>
+            <a href="#kategorijos">Kategorijos</a>
+            <a href="#ingredientai">Ingredientai</a>
+            <a href="#receptai">Receptai</a>
+            <a href="#admin">Admin</a>
+        </nav>
 
     </div>
+</header>
 
-    <main>
+<div class="hero">
 
-        <section id="kategorijos">
+    <h1>Nežinai, ką valgyti?</h1>
 
-            <h2>Kategorijos</h2>
+    <p>
+        Paprastos maisto idėjos užimtiems žmonėms,
+        pradedantiesiems ir visiems, kurie nenori ilgai galvoti,
+        ką pasigaminti.
+    </p>
 
-            <div class="categories">
+</div>
 
-                <div class="category">
-                    <h3>🍽️ Maisto idėjos</h3>
-                    <p>
-                        Idėjos, ką pasigaminti, kai nežinai, ko nori.
-                    </p>
+<main>
+
+    <section id="kategorijos">
+
+        <h2>Kategorijos</h2>
+
+        <div class="categories">
+
+            <div class="category">
+                <h3>🍽️ Maisto idėjos</h3>
+                <p>Idėjos, ką pasigaminti, kai nežinai, ko nori.</p>
+            </div>
+
+            <div class="category">
+                <h3>👩‍🍳 Pradedantiesiems</h3>
+                <p>Paprasti patarimai žmonėms, kurie tik pradeda gaminti.</p>
+            </div>
+
+            <div class="category">
+                <h3>⏱️ Greitai ir paprastai</h3>
+                <p>Idėjos, kai neturi daug laiko.</p>
+            </div>
+
+            <div class="category">
+                <h3>🍓 Saldžios idėjos</h3>
+                <p>Paprastos saldžių užkandžių ir desertų idėjos.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="ingredientai">
+
+        <h2>Pasirink ingredientus</h2>
+
+        <div class="ingredients-box">
+
+            <div class="ingredient-group">
+                <h3>🥛 Pieno produktai ir kiaušiniai</h3>
+
+                <label class="ingredient"><input type="checkbox"> Pienas</label>
+                <label class="ingredient"><input type="checkbox"> Grietinėlė</label>
+                <label class="ingredient"><input type="checkbox"> Sviestas</label>
+                <label class="ingredient"><input type="checkbox"> Ghee</label>
+                <label class="ingredient"><input type="checkbox"> Sūris</label>
+                <label class="ingredient"><input type="checkbox"> Jogurtas</label>
+                <label class="ingredient"><input type="checkbox"> Varškė</label>
+                <label class="ingredient"><input type="checkbox"> Kreminis sūris</label>
+                <label class="ingredient"><input type="checkbox"> Kiaušiniai</label>
+            </div>
+
+            <div class="ingredient-group">
+                <h3>🍗 Mėsa ir paukštiena</h3>
+
+                <label class="ingredient"><input type="checkbox"> Vištiena</label>
+                <label class="ingredient"><input type="checkbox"> Jautiena</label>
+                <label class="ingredient"><input type="checkbox"> Kiauliena</label>
+            </div>
+
+            <div class="ingredient-group">
+                <h3>🐟 Žuvis ir jūros gėrybės</h3>
+
+                <label class="ingredient"><input type="checkbox"> Lašiša</label>
+                <label class="ingredient"><input type="checkbox"> Tunas</label>
+                <label class="ingredient"><input type="checkbox"> Menkė</label>
+                <label class="ingredient"><input type="checkbox"> Krevetės</label>
+                <label class="ingredient"><input type="checkbox"> Sardinės</label>
+            </div>
+
+            <div class="ingredient-group">
+                <h3>🌱 Augaliniai baltymai</h3>
+
+                <label class="ingredient"><input type="checkbox"> Tofu</label>
+                <label class="ingredient"><input type="checkbox"> Avinžirniai</label>
+                <label class="ingredient"><input type="checkbox"> Pupelės</label>
+                <label class="ingredient"><input type="checkbox"> Lęšiai</label>
+            </div>
+
+            <div class="ingredient-group">
+                <h3>🍞 Grūdai ir pagrindiniai produktai</h3>
+
+                <label class="ingredient"><input type="checkbox"> Ryžiai</label>
+                <label class="ingredient"><input type="checkbox"> Makaronai</label>
+                <label class="ingredient"><input type="checkbox"> Avižos</label>
+                <label class="ingredient"><input type="checkbox"> Duona</label>
+                <label class="ingredient"><input type="checkbox"> Miltai</label>
+                <label class="ingredient"><input type="checkbox"> Bulvės</label>
+                <label class="ingredient"><input type="checkbox"> Bolivinė balanda</label>
+            </div>
+
+            <div class="ingredient-group">
+                <h3>🥦 Daržovės</h3>
+
+                <label class="ingredient"><input type="checkbox"> Morkos</label>
+                <label class="ingredient"><input type="checkbox"> Brokoliai</label>
+                <label class="ingredient"><input type="checkbox"> Žiediniai kopūstai</label>
+                <label class="ingredient"><input type="checkbox"> Paprikos</label>
+                <label class="ingredient"><input type="checkbox"> Cukinijos</label>
+                <label class="ingredient"><input type="checkbox"> Pomidorai</label>
+                <label class="ingredient"><input type="checkbox"> Svogūnai</label>
+                <label class="ingredient"><input type="checkbox"> Česnakai</label>
+                <label class="ingredient"><input type="checkbox"> Špinatai</label>
+                <label class="ingredient"><input type="checkbox"> Agurkai</label>
+            </div>
+
+            <div class="ingredient-group">
+                <h3>🍎 Vaisiai</h3>
+
+                <label class="ingredient"><input type="checkbox"> Bananai</label>
+                <label class="ingredient"><input type="checkbox"> Obuoliai</label>
+                <label class="ingredient"><input type="checkbox"> Kriaušės</label>
+                <label class="ingredient"><input type="checkbox"> Braškės</label>
+                <label class="ingredient"><input type="checkbox"> Mėlynės</label>
+                <label class="ingredient"><input type="checkbox"> Vynuogės</label>
+                <label class="ingredient"><input type="checkbox"> Datulės</label>
+            </div>
+
+            <div class="ingredient-group">
+                <h3>🥜 Riešutai ir sėklos</h3>
+
+                <label class="ingredient"><input type="checkbox"> Žemės riešutai</label>
+                <label class="ingredient"><input type="checkbox"> Žemės riešutų sviestas</label>
+                <label class="ingredient"><input type="checkbox"> Migdolai</label>
+                <label class="ingredient"><input type="checkbox"> Chia sėklos</label>
+                <label class="ingredient"><input type="checkbox"> Linų sėmenys</label>
+                <label class="ingredient"><input type="checkbox"> Kanapių sėklos</label>
+            </div>
+
+            <div class="ingredient-group">
+                <h3>🧂 Padažai, prieskoniai ir priedai</h3>
+
+                <label class="ingredient"><input type="checkbox"> Druska</label>
+                <label class="ingredient"><input type="checkbox"> Pipirai</label>
+                <label class="ingredient"><input type="checkbox"> Paprika</label>
+                <label class="ingredient"><input type="checkbox"> Cinamonas</label>
+                <label class="ingredient"><input type="checkbox"> Rudasis / baltasis cukrus</label>
+                <label class="ingredient"><input type="checkbox"> Alyvuogių aliejus</label>
+                <label class="ingredient"><input type="checkbox"> Medus</label>
+                <label class="ingredient"><input type="checkbox"> Citrinų sultys</label>
+                <label class="ingredient"><input type="checkbox"> Sojų padažas</label>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="receptai">
+
+        <h2>Receptai ir idėjos</h2>
+
+        <div id="publicPosts" class="post-grid"></div>
+
+        <div id="emptyPosts" class="empty">
+            <h3>🍽️ Kol kas receptų nėra</h3>
+            <p>Receptai ir idėjos atsiras čia, kai juos pridėsi.</p>
+        </div>
+
+    </section>
+
+    <section id="admin">
+
+        <h2>🔐 Administravimas</h2>
+
+        <div class="admin-box">
+
+            <button class="primary-button" onclick="toggleAdmin()">
+                Atidaryti administravimo skydelį
+            </button>
+
+            <div id="adminPanel" class="admin-panel">
+
+                <h3>Pridėti naują įrašą</h3>
+
+                <div class="admin-form">
+
+                    <label>
+                        Pavadinimas
+                        <input id="postTitle" type="text" placeholder="Pavyzdžiui: Šaldytas bananas">
+                    </label>
+
+                    <label>
+                        Tipas
+                        <select id="postType">
+                            <option>Receptas</option>
+                            <option>Patarimas</option>
+                            <option>Idėja</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Kategorija
+                        <select id="postCategory">
+                            <option>Maisto idėjos</option>
+                            <option>Receptai</option>
+                            <option>Saldžios idėjos</option>
+                            <option>Patarimai</option>
+                        </select>
+                    </label>
+
+                    <h4>Žymos</h4>
+
+                    <div class="checkbox-group">
+
+                        <label><input type="checkbox" value="Iki 30 min." class="tag-input"> Iki 30 min.</label>
+                        <label><input type="checkbox" value="Daugiau nei 30 min." class="tag-input"> Daugiau nei 30 min.</label>
+
+                        <label><input type="checkbox" value="Pradedantiesiems" class="tag-input"> Pradedantiesiems</label>
+                        <label><input type="checkbox" value="Vidutinis" class="tag-input"> Vidutinis</label>
+                        <label><input type="checkbox" value="Patyrusiems" class="tag-input"> Patyrusiems</label>
+
+                        <label><input type="checkbox" value="Be kepimo" class="tag-input"> Be kepimo</label>
+                        <label><input type="checkbox" value="Orkaitė" class="tag-input"> Orkaitė</label>
+                        <label><input type="checkbox" value="Keptuvė" class="tag-input"> Keptuvė</label>
+                        <label><input type="checkbox" value="Šaldiklis" class="tag-input"> Šaldiklis</label>
+                        <label><input type="checkbox" value="Vienas puodas" class="tag-input"> Vienas puodas</label>
+
+                        <label><input type="checkbox" value="Saldus" class="tag-input"> Saldus</label>
+                        <label><input type="checkbox" value="Sūrus / pikantiškas" class="tag-input"> Sūrus / pikantiškas</label>
+                        <label><input type="checkbox" value="Aštrus" class="tag-input"> Aštrus</label>
+                        <label><input type="checkbox" value="Rūgštus" class="tag-input"> Rūgštus</label>
+
+                        <label><input type="checkbox" value="Pusryčiai" class="tag-input"> Pusryčiai</label>
+                        <label><input type="checkbox" value="Pietūs" class="tag-input"> Pietūs</label>
+                        <label><input type="checkbox" value="Vakarienė" class="tag-input"> Vakarienė</label>
+                        <label><input type="checkbox" value="Užkandis" class="tag-input"> Užkandis</label>
+
+                    </div>
+
+                    <label>
+                        Tekstas
+                        <textarea id="postContent" placeholder="Parašyk receptą, patarimą ar idėją..."></textarea>
+                    </label>
+
+                    <button class="primary-button" onclick="addPost()">
+                        Pridėti įrašą
+                    </button>
+
                 </div>
 
-                <div class="category">
-                    <h3>👩‍🍳 Nemoku gaminti</h3>
-                    <p>
-                        Paprasti patarimai žmonėms, kurie tik pradeda gaminti.
-                    </p>
-                </div>
+                <h3>Esami įrašai</h3>
 
-                <div class="category">
-                    <h3>⏱️ Greitai ir paprastai</h3>
-                    <p>
-                        Idėjos, kai neturi daug laiko.
-                    </p>
-                </div>
-
-                <div class="category">
-                    <h3>🍓 Saldžios idėjos</h3>
-                    <p>
-                        Paprastos saldžių užkandžių ir desertų idėjos.
-                    </p>
-                </div>
-
-                <div class="category">
-                    <h3>🥦 Vaisiai ir daržovės</h3>
-                    <p>
-                        Idėjos, kaip lengviau įtraukti daugiau vaisių ir daržovių.
-                    </p>
-                </div>
-
-                <div class="category">
-                    <h3>💡 Kad būtų lengviau</h3>
-                    <p>
-                        Patarimai, kurie gali palengvinti maisto gaminimą.
-                    </p>
-                </div>
+                <div id="adminPosts"></div>
 
             </div>
 
-        </section>
+        </div>
 
-        <section id="ingredientai">
+    </section>
 
-            <h2>Pasirink ingredientus</h2>
+</main>
 
-            <div class="ingredients">
+<footer>
+    Ką valgyti? — paprastesnės maisto idėjos kasdienai.
+</footer>
 
-                <label>
-                    <input type="checkbox">
-                    Bulvės
-                </label>
+<script>
 
-                <label>
-                    <input type="checkbox">
-                    Morkos
-                </label>
+    let posts = JSON.parse(localStorage.getItem("mealPosts")) || [];
 
-                <label>
-                    <input type="checkbox">
-                    Kiaušiniai
-                </label>
+    function toggleAdmin() {
+        const panel = document.getElementById("adminPanel");
+        panel.classList.toggle("visible");
+    }
 
-                <label>
-                    <input type="checkbox">
-                    Vištiena
-                </label>
+    function addPost() {
 
-                <label>
-                    <input type="checkbox">
-                    Ryžiai
-                </label>
+        const title = document.getElementById("postTitle").value.trim();
+        const type = document.getElementById("postType").value;
+        const category = document.getElementById("postCategory").value;
+        const content = document.getElementById("postContent").value.trim();
 
-                <label>
-                    <input type="checkbox">
-                    Makaronai
-                </label>
+        const tags = Array.from(
+            document.querySelectorAll(".tag-input:checked")
+        ).map(input => input.value);
 
-                <p>
-                    Receptų paieška pagal ingredientus bus pridėta vėliau.
-                </p>
+        if (!title || !content) {
+            alert("Prašome įrašyti pavadinimą ir tekstą.");
+            return;
+        }
 
-            </div>
+        const newPost = {
+            id: Date.now(),
+            title: title,
+            type: type,
+            category: category,
+            content: content,
+            tags: tags
+        };
 
-        </section>
+        posts.push(newPost);
 
-        <section id="receptai">
+        localStorage.setItem("mealPosts", JSON.stringify(posts));
 
-            <h2>Receptai</h2>
+        document.getElementById("postTitle").value = "";
+        document.getElementById("postContent").value = "";
 
-            <div class="empty">
+        document.querySelectorAll(".tag-input").forEach(input => {
+            input.checked = false;
+        });
 
-                <h3>🍽️ Kol kas receptų nėra</h3>
+        displayPosts();
 
-                <p>
-                    Receptai atsiras čia, kai juos pridėsi.
-                </p>
+        alert("Įrašas pridėtas!");
 
-            </div>
+    }
 
-        </section>
+    function deletePost(id) {
 
-    </main>
+        posts = posts.filter(post => post.id !== id);
 
-    <footer>
+        localStorage.setItem("mealPosts", JSON.stringify(posts));
 
-        Ką valgyti? — paprastesnės maisto idėjos kasdienai.
+        displayPosts();
 
-    </footer>
+    }
+
+    function displayPosts() {
+
+        const publicPosts = document.getElementById("publicPosts");
+        const adminPosts = document.getElementById("adminPosts");
+        const emptyPosts = document.getElementById("emptyPosts");
+
+        publicPosts.innerHTML = "";
+        adminPosts.innerHTML = "";
+
+        if (posts.length === 0) {
+
+            emptyPosts.style.display = "block";
+
+        } else {
+
+            emptyPosts.style.display = "none";
+
+            posts.forEach(post => {
+
+                const tagsHTML = post.tags
+                    .map(tag => <span class="tag">${tag}</span>)
+                    .join("");
+
+                publicPosts.innerHTML += `
+                    <article class="post-card">
+                        <h3>${post.title}</h3>
+                        <p><strong>${post.type}</strong> · ${post.category}</p>
+                        <div>${tagsHTML}</div>
+                        <p>${post.content}</p>
+                    </article>
+                `;
+
+                adminPosts.innerHTML += `
+                    <div class="admin-post">
+                        <strong>${post.title}</strong>
+                        <p>${post.type} · ${post.category}</p>
+                        <button class="danger-button" onclick="deletePost(${post.id})">
+                            Ištrinti
+                        </button>
+                    </div>
+                `;
+
+            });
+
+        }
+
+    }
+
+    displayPosts();
+
+</script>
 
 </body>
 </html>
