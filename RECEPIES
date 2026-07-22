@@ -101,6 +101,10 @@
             cursor: pointer;
         }
 
+        .search-box button:hover {
+            opacity: 0.85;
+        }
+
         .filters {
             display: flex;
             justify-content: center;
@@ -177,6 +181,13 @@
             font-size: 12px;
         }
 
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 50px;
+            color: #666;
+        }
+
         footer {
             text-align: center;
             padding: 30px;
@@ -185,6 +196,7 @@
         }
 
         @media (max-width: 600px) {
+
             .page-title h1 {
                 font-size: 36px;
             }
@@ -197,6 +209,7 @@
             .search-box button {
                 padding: 14px;
             }
+
         }
     </style>
 </head>
@@ -204,25 +217,41 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo">CRAVE</a>
+
+        <a href="index.html" class="logo">
+            CRAVE
+        </a>
 
         <div class="language">
-            <button onclick="setLanguage('en')">ENG</button>
-            <button onclick="setLanguage('lt')">LT</button>
+            <button onclick="setLanguage('en')">
+                ENG
+            </button>
+
+            <button onclick="setLanguage('lt')">
+                LT
+            </button>
         </div>
+
     </header>
+
 
     <main>
 
         <section class="page-title">
-            <h1 id="pageTitle">Recipes</h1>
+
+            <h1 id="pageTitle">
+                Recipes
+            </h1>
 
             <p id="pageDescription">
                 Discover something delicious to make.
             </p>
+
         </section>
 
+
         <div class="search-box">
+
             <input
                 type="text"
                 id="searchInput"
@@ -232,129 +261,398 @@
             <button onclick="searchRecipes()">
                 Search
             </button>
+
         </div>
+
 
         <div class="filters">
-            <button class="filter-button">All</button>
-            <button class="filter-button">Quick</button>
-            <button class="filter-button">Healthy</button>
-            <button class="filter-button">Vegetarian</button>
-            <button class="filter-button">High Protein</button>
+
+            <button
+                class="filter-button"
+                onclick="filterRecipes('all')">
+                All
+            </button>
+
+            <button
+                class="filter-button"
+                onclick="filterRecipes('quick')">
+                Quick
+            </button>
+
+            <button
+                class="filter-button"
+                onclick="filterRecipes('healthy')">
+                Healthy
+            </button>
+
+            <button
+                class="filter-button"
+                onclick="filterRecipes('vegetarian')">
+                Vegetarian
+            </button>
+
+            <button
+                class="filter-button"
+                onclick="filterRecipes('high protein')">
+                High Protein
+            </button>
+
         </div>
 
-        <section class="recipes-grid">
 
-            <article class="recipe-card">
-                <div class="recipe-image">
-                    Recipe Image
-                </div>
-
-                <div class="recipe-content">
-                    <h2>Example Pasta</h2>
-
-                    <p>
-                        A simple and delicious meal idea.
-                    </p>
-
-                    <div class="tags">
-                        <span class="tag">Quick</span>
-                        <span class="tag">Dinner</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="recipe-card">
-                <div class="recipe-image">
-                    Recipe Image
-                </div>
-
-                <div class="recipe-content">
-                    <h2>Healthy Bowl</h2>
-
-                    <p>
-                        A fresh and balanced meal.
-                    </p>
-
-                    <div class="tags">
-                        <span class="tag">Healthy</span>
-                        <span class="tag">Lunch</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="recipe-card">
-                <div class="recipe-image">
-                    Recipe Image
-                </div>
-
-                <div class="recipe-content">
-                    <h2>Protein Dinner</h2>
-
-                    <p>
-                        A filling meal with plenty of protein.
-                    </p>
-
-                    <div class="tags">
-                        <span class="tag">High Protein</span>
-                        <span class="tag">Dinner</span>
-                    </div>
-                </div>
-            </article>
+        <section
+            class="recipes-grid"
+            id="recipesGrid">
 
         </section>
 
     </main>
 
+
     <footer>
         © 2026 CRAVE
     </footer>
 
+
     <script>
 
-        function searchRecipes() {
+        /*
+        ====================================
+        RECIPE DATABASE
+        ====================================
+        */
 
-            const search =
-                document.getElementById("searchInput").value;
+        const recipes = [
 
-            if (search.trim() === "") {
-                alert("Please enter something to search for.");
+            {
+                name: "Example Pasta",
+
+                description:
+                    "A simple and delicious meal idea.",
+
+                tags: [
+                    "Quick",
+                    "Dinner"
+                ],
+
+                ingredients: [
+                    "pasta",
+                    "garlic",
+                    "tomato"
+                ]
+            },
+
+
+            {
+                name: "Healthy Bowl",
+
+                description:
+                    "A fresh and balanced meal.",
+
+                tags: [
+                    "Healthy",
+                    "Lunch"
+                ],
+
+                ingredients: [
+                    "rice",
+                    "chicken",
+                    "vegetables"
+                ]
+            },
+
+
+            {
+                name: "Protein Dinner",
+
+                description:
+                    "A filling meal with plenty of protein.",
+
+                tags: [
+                    "High Protein",
+                    "Dinner"
+                ],
+
+                ingredients: [
+                    "chicken",
+                    "rice",
+                    "broccoli"
+                ]
+            }
+
+        ];
+
+
+        /*
+        ====================================
+        DISPLAY RECIPES
+        ====================================
+        */
+
+        function displayRecipes(recipeList) {
+
+            const recipesGrid =
+                document.getElementById("recipesGrid");
+
+
+            recipesGrid.innerHTML = "";
+
+
+            if (recipeList.length === 0) {
+
+                recipesGrid.innerHTML = `
+                    <div class="no-results">
+                        No recipes found.
+                    </div>
+                `;
+
                 return;
             }
 
-            alert("Searching for: " + search);
+
+            recipeList.forEach(recipe => {
+
+                const card =
+                    document.createElement("article");
+
+
+                card.className =
+                    "recipe-card";
+
+
+                card.innerHTML = `
+
+                    <div class="recipe-image">
+                        Recipe Image
+                    </div>
+
+
+                    <div class="recipe-content">
+
+                        <h2>
+                            ${recipe.name}
+                        </h2>
+
+
+                        <p>
+                            ${recipe.description}
+                        </p>
+
+
+                        <div class="tags">
+
+                            ${recipe.tags.map(tag => `
+
+                                <span class="tag">
+                                    ${tag}
+                                </span>
+
+                            `).join("")}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                recipesGrid.appendChild(card);
+
+            });
+
         }
 
-        function setLanguage(language) {
 
-            const pageTitle =
-                document.getElementById("pageTitle");
+        /*
+        ====================================
+        SEARCH RECIPES
+        ====================================
+        */
 
-            const pageDescription =
-                document.getElementById("pageDescription");
+        function searchRecipes() {
 
             const searchInput =
                 document.getElementById("searchInput");
 
+
+            const search =
+                searchInput.value
+                .toLowerCase()
+                .trim();
+
+
+            const filteredRecipes =
+                recipes.filter(recipe => {
+
+
+                    const searchableText = `
+
+                        ${recipe.name}
+
+                        ${recipe.description}
+
+                        ${recipe.tags.join(" ")}
+
+                        ${recipe.ingredients.join(" ")}
+
+                    `.toLowerCase();
+
+
+                    return searchableText.includes(search);
+
+                });
+
+
+            displayRecipes(filteredRecipes);
+
+        }
+
+
+        /*
+        ====================================
+        FILTER RECIPES BY TAG
+        ====================================
+        */
+
+        function filterRecipes(filter) {
+
+
+            if (filter === "all") {
+
+                displayRecipes(recipes);
+
+                return;
+
+            }
+
+
+            const filteredRecipes =
+                recipes.filter(recipe => {
+
+
+                    const tags =
+                        recipe.tags
+                        .map(tag => tag.toLowerCase());
+
+
+                    return tags.includes(filter);
+
+                });
+
+
+            displayRecipes(filteredRecipes);
+
+        }
+
+
+        /*
+        ====================================
+        SEARCH WHEN PRESSING ENTER
+        ====================================
+        */
+
+        document
+            .getElementById("searchInput")
+            .addEventListener("keydown", function(event) {
+
+
+                if (event.key === "Enter") {
+
+                    searchRecipes();
+
+                }
+
+            });
+
+
+        /*
+        ====================================
+        LANGUAGE SWITCHER
+        ====================================
+        */
+
+        function setLanguage(language) {
+
+
+            const pageTitle =
+                document.getElementById("pageTitle");
+
+
+            const pageDescription =
+                document.getElementById("pageDescription");
+
+
+            const searchInput =
+                document.getElementById("searchInput");
+
+
             if (language === "lt") {
 
-                pageTitle.textContent = "Receptai";
+
+                pageTitle.textContent =
+                    "Receptai";
+
 
                 pageDescription.textContent =
                     "Atraskite ką nors skanaus pasigaminti.";
 
+
                 searchInput.placeholder =
                     "Ieškokite receptų, ingredientų arba žymų...";
 
+
             } else {
 
-                pageTitle.textContent = "Recipes";
+
+                pageTitle.textContent =
+                    "Recipes";
+
 
                 pageDescription.textContent =
                     "Discover something delicious to make.";
 
+
                 searchInput.placeholder =
                     "Search recipes, ingredients, or tags...";
+
             }
+
+        }
+
+
+        /*
+        ====================================
+        LOAD SEARCH FROM HOMEPAGE
+        ====================================
+        */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const searchFromHomepage =
+            urlParams.get("search");
+
+
+        if (searchFromHomepage) {
+
+
+            document
+                .getElementById("searchInput")
+                .value =
+                searchFromHomepage;
+
+
+            searchRecipes();
+
+
+        } else {
+
+
+            displayRecipes(recipes);
+
         }
 
     </script>
