@@ -1,1 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Recipes | CRAVE</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f8f5;
+            color: #222;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 6%;
+            background: white;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-decoration: none;
+            color: #222;
+        }
+
+        .language {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .language button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .language button:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 50px 6%;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-title h1 {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .page-title p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .search-box {
+            display: flex;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            background: white;
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 16px 20px;
+            font-size: 16px;
+            border-radius: 50px;
+        }
+
+        .search-box button {
+            border: none;
+            background: #6b8e23;
+            color: white;
+            padding: 0 25px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .filter-button {
+            padding: 10px 18px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .filter-button:hover {
+            background: #eeeeea;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-image {
+            height: 190px;
+            background: #e4e4dc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #777;
+        }
+
+        .recipe-content {
+            padding: 20px;
+        }
+
+        .recipe-content h2 {
+            margin-bottom: 10px;
+            font-size: 21px;
+        }
+
+        .recipe-content p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            background: #eef1e8;
+            color: #5d7621;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .page-title h1 {
+                font-size: 36px;
+            }
+
+            .search-box {
+                flex-direction: column;
+                border-radius: 20px;
+            }
+
+            .search-box button {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">CRAVE</a>
+
+        <div class="language">
+            <button onclick="setLanguage('en')">ENG</button>
+            <button onclick="setLanguage('lt')">LT</button>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="page-title">
+            <h1 id="pageTitle">Recipes</h1>
+
+            <p id="pageDescription">
+                Discover something delicious to make.
+            </p>
+        </section>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search recipes, ingredients, or tags..."
+            >
+
+            <button onclick="searchRecipes()">
+                Search
+            </button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-button">All</button>
+            <button class="filter-button">Quick</button>
+            <button class="filter-button">Healthy</button>
+            <button class="filter-button">Vegetarian</button>
+            <button class="filter-button">High Protein</button>
+        </div>
+
+        <section class="recipes-grid">
+
+            <article class="recipe-card">
+                <div class="recipe-image">
+                    Recipe Image
+                </div>
+
+                <div class="recipe-content">
+                    <h2>Example Pasta</h2>
+
+                    <p>
+                        A simple and delicious meal idea.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">Quick</span>
+                        <span class="tag">Dinner</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recipe-card">
+                <div class="recipe-image">
+                    Recipe Image
+                </div>
+
+                <div class="recipe-content">
+                    <h2>Healthy Bowl</h2>
+
+                    <p>
+                        A fresh and balanced meal.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">Healthy</span>
+                        <span class="tag">Lunch</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recipe-card">
+                <div class="recipe-image">
+                    Recipe Image
+                </div>
+
+                <div class="recipe-content">
+                    <h2>Protein Dinner</h2>
+
+                    <p>
+                        A filling meal with plenty of protein.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">High Protein</span>
+                        <span class="tag">Dinner</span>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        © 2026 CRAVE
+    </footer>
+
+    <script>
+
+        function searchRecipes() {
+
+            const search =
+                document.getElementById("searchInput").value;
+
+            if (search.trim() === "") {
+                alert("Please enter something to search for.");
+                return;
+            }
+
+            alert("Searching for: " + search);
+        }
+
+        function setLanguage(language) {
+
+            const pageTitle =
+                document.getElementById("pageTitle");
+
+            const pageDescription =
+                document.getElementById("pageDescription");
+
+            const searchInput =
+                document.getElementById("searchInput");
+
+            if (language === "lt") {
+
+                pageTitle.textContent = "Receptai";
+
+                pageDescription.textContent =
+                    "Atraskite ką nors skanaus pasigaminti.";
+
+                searchInput.placeholder =
+                    "Ieškokite receptų, ingredientų arba žymų...";
+
+            } else {
+
+                pageTitle.textContent = "Recipes";
+
+                pageDescription.textContent =
+                    "Discover something delicious to make.";
+
+                searchInput.placeholder =
+                    "Search recipes, ingredients, or tags...";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
